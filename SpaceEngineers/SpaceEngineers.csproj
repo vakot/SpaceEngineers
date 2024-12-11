@@ -96,4 +96,12 @@
   </ItemGroup>
 
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <Target Name="FormattedScripts" AfterTargets="Build">
+    <PropertyGroup>
+      <FormattedScriptOutput>$(ProjectDir)Build\</FormattedScriptOutput>
+    </PropertyGroup>
+    <MakeDir Directories="$(FormattedScriptOutput)" Condition="!Exists('$(FormattedScriptOutput)')" />
+    <Exec Command="dotnet run --project ../Formatter -- --input=$(ProjectDir) --output=$(FormattedScriptOutput)" />
+  </Target>
 </Project>
